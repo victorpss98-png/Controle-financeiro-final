@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle Financeiro & Corridas</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    nav { display: flex; background: #333; color: white; }
+    nav button { flex: 1; padding: 1em; background: #333; color: white; border: none; cursor: pointer; }
+    nav button:hover { background: #444; }
+    .tab { padding: 1em; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 5px 0; display: flex; justify-content: space-between; align-items: center; }
+    .delete-btn { background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+    .summary { margin-top: 1em; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <nav>
+    <button onclick="showTab('financas')">Finanças</button>
+    <button onclick="showTab('corridas')">Corridas</button>
+  </nav>
+
+  <!-- Aba Finanças -->
+  <div id="financas" class="tab">
+    <h2>Finanças</h2>
+    <form id="finance-form">
+      <input type="date" id="finance-date" required>
+      <input type="text" id="finance-category" placeholder="Categoria" required>
+      <input type="text" id="finance-subcategory" placeholder="Subcategoria">
+      <input type="number" id="finance-amount" placeholder="Valor" required>
+      <select id="finance-type">
+        <option value="income">Receita</option>
+        <option value="expense">Despesa</option>
+      </select>
+      <button type="submit">Adicionar</button>
+    </form>
+    <ul id="finance-list"></ul>
+    <div class="summary" id="finance-daily"></div>
+    <div class="summary" id="finance-weekly"></div>
+    <div class="summary" id="finance-monthly"></div>
+  </div>
+
+  <!-- Aba Corridas -->
+  <div id="corridas" class="tab" style="display:none;">
+    <h2>Corridas</h2>
+    <form id="ride-form">
+      <input type="date" id="ride-date" required>
+      <input type="number" id="ride-gains" placeholder="Ganhos do dia" required>
+      <input type="number" id="ride-km" placeholder="Quilometragem" required>
+      <input type="number" id="ride-gas" placeholder="Gasto Gasolina" required>
+      <input type="number" id="ride-oil" placeholder="Gasto Óleo" required>
+      <input type="number" id="ride-brakes" placeholder="Gasto Freios" required>
+      <input type="number" id="ride-maint" placeholder="Gasto Manutenção" required>
+      <button type="submit">Adicionar</button>
+    </form>
+    <ul id="ride-list"></ul>
+    <button onclick="backupRides()">Backup</button>
+    <button onclick="restoreRides()">Restaurar</button>
+    <canvas id="ride-chart" width="400" height="200"></canvas>
+    <div class="summary" id="ride-daily"></div>
+    <div class="summary" id="ride-weekly"></div>
+    <div class="summary" id="ride-monthly"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
